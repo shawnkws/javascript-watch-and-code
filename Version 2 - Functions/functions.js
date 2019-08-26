@@ -1,21 +1,36 @@
 // store
-var todos = ['item 1', 'item 2', 'item 3'];
+var todos = ["item 1", "item 2", "item 3"];
 
 // display
-console.log(todos);
-console.log("todos");
-console.log("My todos:" + " " + todos);
+function display(object) {
+  console.log(object);
+}
+
+display(todos);
+display("todos");
+display("My todos:" + " " + todos);
 
 // add
-todos.push("item 4");
-console.log(todos);
-todos.push("item 5");
-console.log(todos);
+function add(arrName, objAdd) {
+  arrName.push(objAdd);
+  display(arrName);
+}
+
+add(todos, "item 4");
+add(todos, "item 5");
 
 // edit
-todos[0] = "ITEM_1";
-console.log(todos);
+function edit(arrName, arrIndex, objEdit) {
+  arrName[arrIndex] = objEdit;
+  display(arrName);
+}
+
+edit(todos, 0, "ITEM_1");
 
 // delete
-todos.splice(0, 2);
-console.log(todos);
+function remove(arrName, arrIndex, objCount) {
+  arrName.splice(arrIndex, objCount);
+  display(arrName);
+}
+
+remove(todos, 0, 2);
