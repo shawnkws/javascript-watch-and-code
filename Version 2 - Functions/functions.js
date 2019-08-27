@@ -29,8 +29,9 @@ edit(todos, 0, "ITEM_1");
 
 // delete
 function remove(arrName, arrIndex, objRemoveCount) {
+  objRemoveCount = isNaN(objRemoveCount) ? 1 : objRemoveCount;
   arrName.splice(arrIndex, objRemoveCount);
   display(arrName);
 }
 
-remove(todos, 0, 2);
+remove(todos, 0);
