@@ -4,17 +4,21 @@ var todoObj = {
 
   // display
   display: function(obj, text) {
-    if (obj.length == 0) {
-      console.log("All tasks Completed. No more Todo items :)");
+    if (obj.length === 0) {
+      console.log("No Todo items :)");
     } else {
-      if (text == undefined || text == null) {
+      if (text === undefined || text === null) {
         console.log("My todos:");
       } else {
         console.log(text + "\n" + "My todos:");
       }
 
       for (var i = 0; i < obj.length; i++) {
-        console.log(obj[i].name);
+        if (obj[i].completed) {
+          console.log("(x) " + obj[i].name);
+        } else {
+          console.log("( ) " + obj[i].name);
+        }
       }
     }
   },
