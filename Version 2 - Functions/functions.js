@@ -28,8 +28,8 @@ function edit(arrName, arrIndex, objEdit) {
 edit(todos, 0, "ITEM_1");
 
 // delete
-function remove(arrName, arrIndex, objCount) {
-  arrName.splice(arrIndex, objCount);
+function remove(arrName, arrIndex, objRemoveCount) {
+  arrName.splice(arrIndex, objRemoveCount);
   display(arrName);
 }
 
