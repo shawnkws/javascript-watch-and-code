@@ -54,6 +54,7 @@ var todoObj = {
   // toggle all
   toggleAll: function(arrName) {
     var itemCompleted = 0;
+    
     for (var i = 0; i < arrName.length; i++) {
       if (arrName[i].completed === true) {
         itemCompleted++;
