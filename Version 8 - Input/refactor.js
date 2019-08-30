@@ -75,30 +75,61 @@ var todoObj = {
   }
 };
 
-var displayAllButton = document.getElementById("displayAllButton");
+var handlers = {
+  // display
+  displayAllButton: function() {
+    todoObj.display(todoObj.todos);
+  },
+  // add
+  add: function() {
+    todoObj.add(todoObj.todos, document.getElementById("add").value);
+    document.getElementById("add").value = "";
+  },
+  addEnter: function() {
+    if (event.keyCode === 13) {
+      this.add();
+    }
+  },
+  // edit
+  edit: function() {
+    var objEdit = document.getElementById("editText").value;
+    var arrIndex = document.getElementById("editPosition").value - 1;
 
-displayAllButton.addEventListener("click", function() {
-  todoObj.display(todoObj.todos);
-});
-
-var toggleAllButton = document.getElementById("toggleAllButton");
-
-toggleAllButton.addEventListener("click", function() {
-  todoObj.toggleAll(todoObj.todos);
-});
+    todoObj.edit(todoObj.todos, arrIndex, objEdit);
+    document.getElementById("editText").value = "";
+    document.getElementById("editPosition").value = "";
+  },
+  // delete
+  remove: function() {
+    todoObj.remove(todoObj.todos, document.getElementById("remove").value - 1);
+    document.getElementById("remove").value = "";
+  },
+  // complete
+  toggleStatus: function() {
+    todoObj.toggleStatus(
+      todoObj.todos,
+      document.getElementById("toggle").value - 1
+    );
+    document.getElementById("toggle").value = "";
+  },
+  // toggleAll
+  toggleAllButton: function() {
+    todoObj.toggleAll(todoObj.todos);
+  }
+};
 
 /*
-  todoObj.display(todoObj.todos);
-  
-  todoObj.add(todoObj.todos, "item 1");
-  todoObj.add(todoObj.todos, "item 2");
-  
-  todoObj.edit(todoObj.todos, 0, "ITEM_1");
-  todoObj.edit(todoObj.todos, 1, "ITEM_2");
-  
-  todoObj.remove(todoObj.todos, 1);
-  
-  todoObj.toggleStatus(todoObj.todos, 0);
-  
-  todoObj.toggleAll(todoObj.todos);
-*/
+    todoObj.display(todoObj.todos);
+    
+    todoObj.add(todoObj.todos, "item 1");
+    todoObj.add(todoObj.todos, "item 2");
+    
+    todoObj.edit(todoObj.todos, 0, "ITEM_1");
+    todoObj.edit(todoObj.todos, 1, "ITEM_2");
+    
+    todoObj.remove(todoObj.todos, 1);
+    
+    todoObj.toggleStatus(todoObj.todos, 0);
+    
+    todoObj.toggleAll(todoObj.todos);
+  */
