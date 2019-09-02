@@ -2,53 +2,32 @@ var todoObj = {
   // store
   todos: [],
 
-  // display
-  display: function(obj, text) {
-    if (obj.length === 0) {
-      console.log("No Todo items :)");
-    } else {
-      if (text === undefined || text === null) {
-        console.log("My todos:");
-      } else {
-        console.log(text + "\n" + "My todos:");
-      }
-
-      for (var i = 0; i < obj.length; i++) {
-        if (obj[i].completed) {
-          console.log("(x) " + obj[i].name);
-        } else {
-          console.log("( ) " + obj[i].name);
-        }
-      }
-    }
-  },
-
   // add
   add: function(arrName, objAdd) {
     arrName.push({
       name: objAdd,
       completed: false
     });
-    this.display(arrName, "Todo item(s) added.");
+    view.display(arrName);
   },
 
   // edit
   edit: function(arrName, arrIndex, objEdit) {
     arrName[arrIndex].name = objEdit;
-    this.display(arrName, "Todo item(s) edited.");
+    view.display(arrName);
   },
 
   // delete
   remove: function(arrName, arrIndex, objRemoveCount) {
     objRemoveCount = isNaN(objRemoveCount) ? 1 : objRemoveCount;
     arrName.splice(arrIndex, objRemoveCount);
-    this.display(arrName, "Todo item(s) removed.");
+    view.display(arrName);
   },
 
   // complete
   toggleStatus: function(arrName, arrIndex) {
     arrName[arrIndex].completed = !arrName[arrIndex].completed;
-    this.display(arrName, "Todo item(s) status changed.");
+    view.display(arrName);
   },
 
   // toggle all
@@ -70,16 +49,12 @@ var todoObj = {
         arrName[j].completed = true;
       }
     }
-
-    this.display(arrName, "All status updated.");
+    
+    view.display(arrName);
   }
 };
 
 var handlers = {
-  // display
-  displayAllButton: function() {
-    todoObj.display(todoObj.todos);
-  },
   // add
   add: function() {
     todoObj.add(todoObj.todos, document.getElementById("add").value);
@@ -119,10 +94,19 @@ var handlers = {
 };
 
 var view = {
-  display: function(obj, text) {
-    for (var i = 0; i < todoObj.todos.length; i++) {
-      var listParent = document.querySelector("ol");
+  display: function(obj) {
+    var listParent = document.querySelector("ol");
+    listParent.innerHTML = "";
+
+    for (var i = 0; i < obj.length; i++) {
       var listChild = document.createElement("li");
+
+      if (obj[i].completed === true) {
+        listChild.textContent = "(x) " + obj[i].name;
+      } else if (obj[i].completed === false) {
+        listChild.textContent = "( ) " + obj[i].name;
+      }
+
       listParent.appendChild(listChild);
     }
   }
