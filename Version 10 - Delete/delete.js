@@ -18,9 +18,9 @@ var todoObj = {
   },
 
   // delete
-  remove: function(arrName, arrIndex, objRemoveCount) {
+  remove: function(arrName, arrId, objRemoveCount) {
     objRemoveCount = isNaN(objRemoveCount) ? 1 : objRemoveCount;
-    arrName.splice(arrIndex, objRemoveCount);
+    arrName.splice(arrId, objRemoveCount);
     view.display(arrName);
   },
 
@@ -49,7 +49,7 @@ var todoObj = {
         arrName[j].completed = true;
       }
     }
-    
+
     view.display(arrName);
   }
 };
@@ -75,9 +75,8 @@ var handlers = {
     document.getElementById("editPosition").value = "";
   },
   // delete
-  remove: function() {
-    todoObj.remove(todoObj.todos, document.getElementById("remove").value - 1);
-    document.getElementById("remove").value = "";
+  remove: function(idToDelete) {
+    todoObj.remove(todoObj.todos, document.getElementById("idToDelete"));
   },
   // complete
   toggleStatus: function() {
@@ -107,23 +106,53 @@ var view = {
         listChild.textContent = "( ) " + obj[i].name;
       }
 
+      listChild.id = "list-item-" + (i + 1);
+      listChild.appendChild(this.createDeleteButton(i + 1));
       listParent.appendChild(listChild);
     }
+  },
+
+  createDeleteButton: function(count) {
+    var deleteButton = document.createElement("button");
+
+    deleteButton.textContent = "Delete";
+    deleteButton.className =
+      "delete-button" + " " + "delete-button-item-" + count;
+
+    return deleteButton;
+  },
+
+  eventListeners: function() {
+    var todoUnorderedList = document.getElementById("list");
+
+    todoUnorderedList.addEventListener("click", function(event) {
+      var itemClicked = event.target;
+
+      if (itemClicked.className.includes("delete-button")) {
+        var idToDelete =
+          "list-item-" +
+          itemClicked.className.charAt(itemClicked.className.length - 1);
+
+        handlers.remove(idToDelete);
+      }
+    });
   }
 };
 
+view.eventListeners();
+
 /*
-      todoObj.display(todoObj.todos);
-      
-      todoObj.add(todoObj.todos, "item 1");
-      todoObj.add(todoObj.todos, "item 2");
-      
-      todoObj.edit(todoObj.todos, 0, "ITEM_1");
-      todoObj.edit(todoObj.todos, 1, "ITEM_2");
-      
-      todoObj.remove(todoObj.todos, 1);
-      
-      todoObj.toggleStatus(todoObj.todos, 0);
-      
-      todoObj.toggleAll(todoObj.todos);
-    */
+        todoObj.display(todoObj.todos);
+        
+        todoObj.add(todoObj.todos, "item 1");
+        todoObj.add(todoObj.todos, "item 2");
+        
+        todoObj.edit(todoObj.todos, 0, "ITEM_1");
+        todoObj.edit(todoObj.todos, 1, "ITEM_2");
+        
+        todoObj.remove(todoObj.todos, 1);
+        
+        todoObj.toggleStatus(todoObj.todos, 0);
+        
+        todoObj.toggleAll(todoObj.todos);
+      */
